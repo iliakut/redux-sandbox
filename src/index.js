@@ -1,16 +1,4 @@
-/*
-* самописный redux
-*
-* reducer - функция, которая принимает два значение
-* текущее состояние и экшен (дейтсвие), которое нужно совершить
-*
-* action - объект у которое етсь тип
-* в зависимости от дима выполняется что-л.
-*
-* правила:
-* если action.type неизвестен, то нужно вернуть стейт
-* если стейт undefined - нужно вернуть initialState
-*/
+import {createStore} from "redux";
 
 const reducer = (state = 0, action) => {
   switch (action.type) {
@@ -22,9 +10,17 @@ const reducer = (state = 0, action) => {
   }
 };
 
-let state = reducer(undefined, {});
+const store = createStore(reducer);
+store.subscribe(() => {
+  console.log(store.getState());
+});
+store.dispatch({type: 'INC'});
+store.dispatch({type: 'INC'});
 
-state = reducer(state, {type: 'INC'});
-console.log(state);
-state = reducer(state, {type: 'INC'});
-console.log(state);
+/*
+* createStore - создает store из reducer с дефолтными значенимяи
+*
+* subscribe - позволяет подписаться на измнения store
+*
+* dispatch - обратабывает actions
+*/
