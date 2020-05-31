@@ -9,7 +9,7 @@
 */
 
 const reducer = (state = 0, action) => {
-  switch (action.type === 'INC') {
+  switch (action.type) {
     case 'INC':
       return state + 1;
 
