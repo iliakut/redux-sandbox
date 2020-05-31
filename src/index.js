@@ -1,17 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+/*
+* самописный redux
+* reducer - функция, которая принимает два значение
+* текущее состояние и экшен (дейтсвие), которое нужно совершить
+* action - объект у которое етсь тип
+* в зависимости от дима выполняется что-л.
+* если action.type неизвестен, то нужно вернуть стейт
+* если стейт undefined - нужно вернуть initialState
+*/
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const reducer = (state = 0, action) => {
+  switch (action.type === 'INC') {
+    case 'INC':
+      return state + 1;
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+    default:
+      return state;
+  }
+};
+
+let state = reducer(undefined, {});
+
+state = reducer(state, {type: 'INC'});
+console.log(state);
+state = reducer(state, {type: 'INC'});
+console.log(state);
