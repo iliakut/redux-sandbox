@@ -12,6 +12,7 @@ const {dispatch} = store;
 
 const {inc, dec, rnd} = bindActionCreators(actions, dispatch);
 
+
 document
   .getElementById('inc')
   .addEventListener('click', inc);
