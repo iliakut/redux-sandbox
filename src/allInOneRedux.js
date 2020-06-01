@@ -1,26 +1,40 @@
-import {createStore, bindActionCreators} from "redux";
-import reducer from "./reducer";
-import * as actions from "./actions"
+import {createStore} from "redux";
+
+const reducer = (state = 0, action) => {
+  switch (action.type) {
+    case 'INC':
+      return state + 1;
+
+    case 'DEC':
+      return state - 1;
+
+    case 'RND':
+      return state + action.payload;
+
+    default:
+      return state;
+  }
+};
 
 const store = createStore(reducer);
-const {dispatch} = store;
 
-// bind action creator - аналог bindActionCreators
-// const bindActionCreator = (creator, dispatch) => (...args) => {
-//   dispatch(creator(...args));
-// };
-
-const {inc, dec, rnd} = bindActionCreators(actions, dispatch);
+// action creators
+const dec = () => ({type: 'INC'});
+const rnd = (payload) => ({type: 'RND', payload});
 
 document
   .getElementById('inc')
-  .addEventListener('click', inc);
+  .addEventListener('click', () => {
+    store.dispatch({type: 'INC'})
+  });
 document.getElementById('dec')
-  .addEventListener('click', dec);
+  .addEventListener('click', () => {
+    store.dispatch(dec())
+  });
 document.getElementById('rnd')
   .addEventListener('click', () => {
     const payload = Math.floor(Math.random()*10);
-    rnd(payload)
+    store.dispatch(rnd(payload))
   });
 
 const update = ()  => {
@@ -42,6 +56,4 @@ store.subscribe(update);
 * в reducer нельзя использовать тек. время, генераторы случ чисел, вызов сервера
 *
 * action creator - фкнкция, которая возвращает объект редьюсера (типа и payload)
-*
-* bindActionCreator - функция, которая создает функции для вызова actions
 */
