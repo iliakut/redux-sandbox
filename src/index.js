@@ -18,6 +18,10 @@ const reducer = (state = 0, action) => {
 
 const store = createStore(reducer);
 
+// action creators
+const dec = () => ({type: 'INC'});
+const rnd = (payload) => ({type: 'RND', payload});
+
 document
   .getElementById('inc')
   .addEventListener('click', () => {
@@ -25,12 +29,12 @@ document
   });
 document.getElementById('dec')
   .addEventListener('click', () => {
-    store.dispatch({type: 'DEC'})
+    store.dispatch(dec())
   });
 document.getElementById('rnd')
   .addEventListener('click', () => {
     const payload = Math.floor(Math.random()*10);
-    store.dispatch({type: 'RND', payload})
+    store.dispatch(rnd(payload))
   });
 
 const update = ()  => {
@@ -50,4 +54,6 @@ store.subscribe(update);
 * reducer - должен быть чистой функцией (результат зависит только от аргументов, нет побочных эффектов)
 * зависит только от текущего стейта и экшена
 * в reducer нельзя использовать тек. время, генераторы случ чисел, вызов сервера
+*
+* action creator - фкнкция, которая возвращает объект редьюсера (типа и payload)
 */
