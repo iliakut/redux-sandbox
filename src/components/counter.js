@@ -20,10 +20,18 @@ const mapStateToProps = (state) => {
   }
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    inc: () => dispatch({type: 'INC'}),
+    dec: () => dispatch({type: 'DEC'}),
+    rnd: () => dispatch({type: 'RND'}),
+  }
+};
+
 /*const mapDispatchToProps = (dispatch) => {
    return bindActionCreators(actions, dispatch);
 };
 если передать в коннект actions то он сам сделает mapDispatchToProps
 */
 
-export default connect(mapStateToProps, actions)(Counter);
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
